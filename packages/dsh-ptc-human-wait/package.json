@@ -1,7 +1,7 @@
 {
   "name": "dsh-ptc-human-wait",
   "version": "1.0.0",
-  "description": "Pause the run_code execution deadline while a nested ask_user_question waits for the user's answer.",
+  "description": "run_code 等待用户回答时暂停执行超时（pause the PTC deadline while a nested question waits）。",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -18,7 +18,8 @@
     "index.js",
     "cordis.patch.yml",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "locale"
   ],
   "keywords": [
     "dsh-plugin",
@@ -29,8 +30,8 @@
     "@deepseek-ai/dsh": ">=0.2.0-rc.2 <0.3.0-0"
   },
   "meta": {
-    "title": "PTC Human Wait",
-    "description": "The run_code deadline pauses while a nested question waits for the user."
+    "title": "提问等待",
+    "description": "嵌套提问等待人工回答时，不消耗 run_code 的执行超时。"
   },
   "dsh": {
     "bundle": {
