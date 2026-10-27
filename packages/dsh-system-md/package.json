@@ -1,7 +1,7 @@
 {
   "name": "dsh-system-md",
   "version": "1.0.0",
-  "description": "Project-owned complete system prompt for DeepSeek Harness: a project's .dsh/SYSTEM.md replaces the built-in prompt.",
+  "description": "工程目录里的 .dsh/SYSTEM.md 整体替换该会话的内置系统提示词（project-owned system prompt）。",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -32,8 +32,8 @@
     "@deepseek-ai/dsh": ">=0.2.0-rc.2 <0.3.0-0"
   },
   "meta": {
-    "title": "System-md",
-    "description": "Let a project's .dsh/SYSTEM.md replace the whole built-in system prompt."
+    "title": "项目提示词",
+    "description": "工程目录里的 .dsh/SYSTEM.md 会替代整个内置系统提示词。"
   },
   "icon": "./icon.svg",
   "dsh": {
