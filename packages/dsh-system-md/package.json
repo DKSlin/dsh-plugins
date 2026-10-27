@@ -1,0 +1,44 @@
+{
+  "name": "dsh-system-md",
+  "version": "1.0.0",
+  "description": "Project-owned complete system prompt for DeepSeek Harness: a project's .dsh/SYSTEM.md replaces the built-in prompt.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DKSlin/dsh-plugins.git",
+    "directory": "packages/dsh-system-md"
+  },
+  "type": "module",
+  "main": "./index.js",
+  "exports": {
+    ".": "./index.js",
+    "./package.json": "./package.json",
+    "./locale/*.json": "./locale/*.json"
+  },
+  "files": [
+    "index.js",
+    "cordis.patch.yml",
+    "locale",
+    "icon.svg",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "dsh-plugin",
+    "deepseek-harness",
+    "system-prompt"
+  ],
+  "peerDependencies": {
+    "@deepseek-ai/dsh": ">=0.2.0-rc.2 <0.3.0-0"
+  },
+  "meta": {
+    "title": "System-md",
+    "description": "Let a project's .dsh/SYSTEM.md replace the whole built-in system prompt."
+  },
+  "icon": "./icon.svg",
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}

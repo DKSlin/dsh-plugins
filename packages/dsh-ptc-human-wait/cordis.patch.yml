@@ -1,0 +1,9 @@
+# dsh-ptc-human-wait — bundle patch
+#
+# Pauses the run_code execution deadline only while a nested
+# ask_user_question is waiting for the human answer, so thinking time does
+# not count against it. A program that never asks still dies at the normal
+# deadline.
+- insert:
+    - id: ptc-human-wait
+      name: dsh-ptc-human-wait

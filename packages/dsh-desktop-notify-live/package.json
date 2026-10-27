@@ -1,0 +1,45 @@
+{
+  "name": "dsh-desktop-notify-live",
+  "version": "1.1.0",
+  "description": "Windows toast notification and a ding when the agent asks the user a question or a turn finishes.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DKSlin/dsh-plugins.git",
+    "directory": "packages/dsh-desktop-notify-live"
+  },
+  "type": "module",
+  "main": "./index.js",
+  "exports": {
+    ".": "./index.js",
+    "./package.json": "./package.json",
+    "./locale/*.json": "./locale/*.json"
+  },
+  "files": [
+    "index.js",
+    "notify.ps1",
+    "cordis.patch.yml",
+    "locale",
+    "icon.svg",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "dsh-plugin",
+    "deepseek-harness",
+    "notification"
+  ],
+  "peerDependencies": {
+    "@deepseek-ai/dsh": ">=0.2.0-rc.2 <0.3.0-0"
+  },
+  "meta": {
+    "title": "Desktop Notifications",
+    "description": "Windows toast and a ding when a question is asked or a turn finishes."
+  },
+  "icon": "./icon.svg",
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}

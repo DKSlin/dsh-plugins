@@ -1,0 +1,40 @@
+{
+  "name": "dsh-ptc-human-wait",
+  "version": "1.0.0",
+  "description": "Pause the run_code execution deadline while a nested ask_user_question waits for the user's answer.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DKSlin/dsh-plugins.git",
+    "directory": "packages/dsh-ptc-human-wait"
+  },
+  "type": "module",
+  "main": "./index.js",
+  "exports": {
+    ".": "./index.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "index.js",
+    "cordis.patch.yml",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "dsh-plugin",
+    "deepseek-harness",
+    "ptc"
+  ],
+  "peerDependencies": {
+    "@deepseek-ai/dsh": ">=0.2.0-rc.2 <0.3.0-0"
+  },
+  "meta": {
+    "title": "PTC Human Wait",
+    "description": "The run_code deadline pauses while a nested question waits for the user."
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}

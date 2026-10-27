@@ -1,0 +1,14 @@
+# dsh-system-md — bundle patch
+#
+# While a session's working directory (or an ancestor up to the project root
+# carrying `.git`) holds one of `files`, that file's text becomes the agent's
+# whole system prompt. Without such a file nothing changes.
+#
+# Every setting is optional; the values below are the defaults.
+- insert:
+    - id: project-system-md
+      name: dsh-system-md
+      config:
+        files:
+          - .dsh/SYSTEM.md
+          - .pi/SYSTEM.md

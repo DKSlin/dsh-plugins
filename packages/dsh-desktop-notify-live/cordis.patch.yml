@@ -1,0 +1,7 @@
+# dsh-desktop-notify-live — bundle patch
+#
+# Windows toast notification plus a ding when the agent asks a question or a
+# turn finishes.
+- insert:
+    - id: desktop-notify-live
+      name: dsh-desktop-notify-live
