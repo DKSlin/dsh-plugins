@@ -1,7 +1,7 @@
 {
   "name": "dsh-desktop-notify-live",
   "version": "1.1.0",
-  "description": "Windows toast notification and a ding when the agent asks the user a question or a turn finishes.",
+  "description": "提问或回合结束时弹出 Windows 气泡并响叮咚（Windows toast + ding）。",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -33,8 +33,8 @@
     "@deepseek-ai/dsh": ">=0.2.0-rc.2 <0.3.0-0"
   },
   "meta": {
-    "title": "Desktop Notifications",
-    "description": "Windows toast and a ding when a question is asked or a turn finishes."
+    "title": "桌面通知",
+    "description": "提问、回合结束、出错时弹 Windows 通知并播放提示音。"
   },
   "icon": "./icon.svg",
   "dsh": {
