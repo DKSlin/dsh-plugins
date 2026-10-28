@@ -59,6 +59,8 @@
 
 `minimal` 预设自带一个 `complete: true` 的 persona；一次装配里出现两个 complete section 会直接报错，因此 `minimal` 默认在 `excludePresets` 里。若你在别的预设里也挂了 `complete: true` 的 persona，把它加进 `excludePresets`。
 
+基座把 `complete` section 当作整个提示词，其它 section 一律不渲染——包括 `dsh-system-prefix` 的置顶句。所以本插件会通过 `systemPromptPrefix` 服务取到那句话，在新会话创建时前置到文件内容之前（未安装该插件或它被关闭时不受影响）。
+
 ## 实现
 
 监听 `agent/created`，在该 agent 自己的作用域上用 `ctx.systemPrompt.section({ complete: true, interpolate: false, text })` 注册**唯一一个** section，`text` 是每次装配都会重新读文件的回调。

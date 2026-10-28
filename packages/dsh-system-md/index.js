@@ -163,12 +163,14 @@ function installForAgent(ctx, agent, settings, owned) {
   const cwd = agent.session?.header?.cwd
   if (typeof cwd !== 'string' || cwd.length === 0) return
   if (!settings.applyToSubagents && !isTopLevel(ctx, agent)) return
-  const preset = selectedPreset(agent)
+  const preset = selectedPreset(ctx, agent)
   if (preset !== undefined && settings.excludePresets.includes(preset)) return
   const file = resolveSystemFile(cwd, settings)
   if (file === undefined) return
   const cache = {}
   if (settings.ignoreEmptyFile && readSystemText(file, cache, settings.maxBytes).trim().length === 0) return
+  // Captured once, like dsh-system-prefix captures it for its own section.
+  const sentence = prefixSentence(ctx, agent)
 
   const dispose = agent.ctx.effect(() => {
     const disposers = [
@@ -177,7 +179,7 @@ function installForAgent(ctx, agent, settings, owned) {
         order: 0,
         complete: true,
         interpolate: false,
-        text: () => readSystemText(file, cache, settings.maxBytes),
+        text: () => withSentence(sentence, readSystemText(file, cache, settings.maxBytes)),
       }),
     ]
     if (!settings.keepRuntimeContext) {
@@ -188,6 +190,33 @@ function installForAgent(ctx, agent, settings, owned) {
     }
   })
   owned.set(agent.id, dispose)
+}
+
+/**
+ * The sentence dsh-system-prefix keeps at the very top of a new session.
+ *
+ * This plugin's `complete` section becomes the whole prompt, so that sentence
+ * would otherwise be dropped; read it from the provider and prepend it.
+ * @param ctx - the plugin context, used when the agent scope cannot resolve the service.
+ * @param agent - the agent owning the section.
+ * @returns the sentence without surrounding whitespace, or '' when absent or disabled.
+ */
+function prefixSentence(ctx, agent) {
+  for (const scope of [agent?.ctx, ctx]) {
+    try {
+      const text = scope?.get?.('systemPromptPrefix')?.text?.()
+      if (typeof text === 'string') return text.trim()
+    } catch {
+      // No provider on this scope; try the next one.
+    }
+  }
+  return ''
+}
+
+/** Join the optional prefix sentence and the project file into one section text. */
+function withSentence(sentence, body) {
+  if (sentence.length === 0) return body
+  return body.trim().length === 0 ? sentence : `${sentence}\n\n${body}`
 }
 
 /** Whether one agent is a runtime root rather than a delegated child. */
@@ -201,9 +230,28 @@ function isTopLevel(ctx, agent) {
   }
 }
 
-/** The preset id a session selected, read back from its own log. */
-function selectedPreset(agent) {
-  const events = agent.session?.events
+/**
+ * The preset id a session selected.
+ *
+ * The base Session no longer exposes an `events` array, so the header field and
+ * the `agentPreset` projection are the supported read paths; the event scan
+ * stays as a last-resort fallback for a deployment without session projections.
+ * @param ctx - the plugin context, used when the agent scope cannot resolve the service.
+ * @param agent - the agent owning the section.
+ * @returns the preset id, or undefined when the session uses no preset.
+ */
+function selectedPreset(ctx, agent) {
+  const fromHeader = agent?.session?.header?.agentPreset
+  if (typeof fromHeader === 'string' && fromHeader.length > 0) return fromHeader
+  for (const scope of [agent?.ctx, ctx]) {
+    try {
+      const projected = scope?.get?.('sessionProjections')?.stateOf?.(agent.session, 'agentPreset')
+      if (typeof projected === 'string' && projected.length > 0) return projected
+    } catch {
+      // No projection service here; try the next scope, then the log scan.
+    }
+  }
+  const events = agent?.session?.snapshotEvents?.()
   if (!Array.isArray(events)) return undefined
   for (let index = events.length - 1; index >= 0; index -= 1) {
     const event = events[index]

@@ -1,6 +1,6 @@
 {
   "name": "dsh-system-md",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "工程目录里的 .dsh/SYSTEM.md 整体替换该会话的内置系统提示词（project-owned system prompt）。",
   "license": "MIT",
   "repository": {
