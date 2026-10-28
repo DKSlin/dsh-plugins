@@ -284,15 +284,21 @@ export function apply(ctx, config) {
 
   poll()
   const timer = setInterval(poll, settings.pollMs)
-  ctx.on('dispose', () => {
+  // cordis 4 没有 dispose 事件行重载或卸载时只执行 effect 返回的清理函数。
+  // 不清理会留下第二个轮询器和在途 socket 设置页每保存一次就多一份。
+  ctx.effect(() => () => {
     clearInterval(timer)
-    // 卸载时必须销毁在途连接，否则它的 socket 会在几分钟后超时并拖垮进程。
     try {
       activeClient?.close()
     } catch {
       // 已关闭时忽略。
     }
     activeClient = undefined
+    try {
+      transport.close?.()
+    } catch {
+      // 已关闭时忽略。
+    }
   })
 }
 
@@ -399,7 +405,8 @@ function requestIdOf(messageId) {
 }
 
 /** 发送一封纯文本邮件。 */
-async function sendMail(settings, transport, mail) {  await transport.sendMail({
+async function sendMail(settings, transport, mail) {
+  await transport.sendMail({
     from: settings.from || settings.smtp.user,
     to: settings.to,
     subject: mail.subject,
@@ -428,7 +435,6 @@ function buildQuestionBody(code, title, questions) {
   lines.push(`[DSH:${code}]`)
   return lines.join('\n')
 }
-
 
 /** 读取或分配一个稳定短码。 */
 function allocateCode(state, sessionId, title, baseLength) {
@@ -504,7 +510,8 @@ function definedConfig(value) {
   return out
 }
 
-/** 统一地址形态：去空白、去尖括号、去零宽字符、转小写。 */function normalizeAddress(value) {
+/** 统一地址形态：去空白、去尖括号、去零宽字符、转小写。 */
+function normalizeAddress(value) {
   return String(value ?? '')
     .replace(/[\u200b-\u200f\ufeff]/g, '')
     .trim()
@@ -639,7 +646,6 @@ function mergeDeep(...sources) {
   }
   return out
 }
-
 
 /** 单行错误描述，避免把凭证写进日志。 */
 function describe(error) {

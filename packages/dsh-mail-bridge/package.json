@@ -1,6 +1,6 @@
 {
   "name": "dsh-mail-bridge",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "把每轮回复与提问用邮件推到手机，并用邮件回复继续会话。",
   "license": "MIT",
   "repository": {
