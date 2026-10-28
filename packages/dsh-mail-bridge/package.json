@@ -1,0 +1,65 @@
+{
+  "name": "dsh-mail-bridge",
+  "version": "0.2.0",
+  "description": "把每轮回复与提问用邮件推到手机，并用邮件回复继续会话。",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DKSlin/dsh-plugins.git",
+    "directory": "packages/dsh-mail-bridge"
+  },
+  "type": "module",
+  "main": "./index.js",
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js",
+    "./package.json": "./package.json",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
+  },
+  "files": [
+    "index.js",
+    "client.js",
+    "lib",
+    "cordis.patch.yml",
+    "mail-bridge.example.json",
+    "locale",
+    "icon.svg",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "dsh-plugin",
+    "deepseek-harness",
+    "notification",
+    "email",
+    "remote"
+  ],
+  "dependencies": {
+    "imapflow": "^1.0.150",
+    "mailparser": "^3.7.0",
+    "nodemailer": "^6.9.0"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/dsh": ">=0.2.0-rc.2 <0.3.0-0",
+    "@deepseek-ai/schemastery": "~3.18.5"
+  },
+  "meta": {
+    "title": "邮件桥",
+    "description": "回合结束或需要回答时发邮件到手机，回复邮件即可让会话继续。"
+  },
+  "icon": "./icon.svg",
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "@deepseek-ai/dsh-client-locale",
+        "@deepseek-ai/dsh-client-ui-settings",
+        "@deepseek-ai/dsh-client-ui-plugin-manager"
+      ]
+    }
+  }
+}

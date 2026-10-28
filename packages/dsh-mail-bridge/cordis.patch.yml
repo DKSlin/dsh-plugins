@@ -1,0 +1,6 @@
+# dsh-mail-bridge — bundle patch
+#
+# 邮件通知与远程接管。凭证不写在这里，放在 profile 目录的 mail-bridge.json。
+- insert:
+    - id: mail-bridge
+      name: dsh-mail-bridge

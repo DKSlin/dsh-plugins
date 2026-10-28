@@ -1,0 +1,15 @@
+{
+  "_说明": "把本文件复制为 <profile 目录>/mail-bridge.json 后填写。授权码不是登录密码，需在邮箱设置里单独生成。",
+
+  "enabled": true,
+
+  "sender": "your-bot@example.com",
+  "password": "邮箱授权码",
+
+  "notifyTo": "you@example.com",
+  "whitelist": "you@example.com, another@example.com",
+
+  "pollMs": 30000,
+  "maxChars": 4000,
+  "startupNotify": false
+}
