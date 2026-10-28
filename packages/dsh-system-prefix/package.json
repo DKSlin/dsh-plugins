@@ -1,0 +1,56 @@
+{
+  "name": "dsh-system-prefix",
+  "version": "1.0.0",
+  "description": "在系统提示词最顶部插入一句可配置的话，不替换原有提示词。",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DKSlin/dsh-plugins.git",
+    "directory": "packages/dsh-system-prefix"
+  },
+  "type": "module",
+  "main": "./index.js",
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "index.js",
+    "client.js",
+    "cordis.patch.yml",
+    "locale",
+    "icon.svg",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "dsh-plugin",
+    "deepseek-harness",
+    "system-prompt"
+  ],
+  "peerDependencies": {
+    "@deepseek-ai/dsh": ">=0.2.0-rc.2 <0.3.0-0",
+    "@deepseek-ai/schemastery": "~3.18.5"
+  },
+  "meta": {
+    "title": "系统提示词置顶",
+    "description": "在新会话的系统提示词最顶部插入一句可配置的话，原有提示词保持不变。"
+  },
+  "icon": "./icon.svg",
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "@deepseek-ai/dsh-client-locale",
+        "@deepseek-ai/dsh-client-ui-settings",
+        "@deepseek-ai/dsh-client-ui-plugin-manager"
+      ]
+    }
+  }
+}

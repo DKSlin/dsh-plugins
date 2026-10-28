@@ -1,0 +1,10 @@
+# dsh-system-prefix — bundle patch
+#
+# Inserts one ordinary prompt section above every other section (including the
+# harness identity) for each new top-level session. Unlike dsh-system-md, it
+# never sets `complete`, so the built-in prompt stays intact underneath.
+#
+# The sentence is configured from Plugins → 系统提示词置顶 → Configure.
+- insert:
+    - id: system-prompt-prefix
+      name: dsh-system-prefix

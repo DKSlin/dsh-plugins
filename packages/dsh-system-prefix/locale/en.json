@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "System Prompt Prefix",
+    "description": "Prepend one configurable sentence to a new session's system prompt without replacing anything else."
+  }
+}

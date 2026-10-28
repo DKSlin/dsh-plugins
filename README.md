@@ -4,6 +4,7 @@ DeepSeek Harness (dsh) plugins, one package per directory under `packages/`.
 
 | Package | What it does |
 | --- | --- |
+| [`dsh-system-prefix`](packages/dsh-system-prefix) | Prepends one configurable sentence to a new top-level session's system prompt without replacing anything else. |
 | [`dsh-system-md`](packages/dsh-system-md) | A project's `.dsh/SYSTEM.md` replaces the whole built-in system prompt for that project's sessions. |
 | [`dsh-ptc-human-wait`](packages/dsh-ptc-human-wait) | The `run_code` execution deadline pauses while a nested `ask_user_question` waits for the user. |
 | [`dsh-desktop-notify-live`](packages/dsh-desktop-notify-live) | Windows toast notification and a ding when the agent asks a question or a turn finishes. |
@@ -11,6 +12,7 @@ DeepSeek Harness (dsh) plugins, one package per directory under `packages/`.
 ## Install
 
 ```sh
+dsh plugin --profile web add dsh-system-prefix
 dsh plugin --profile web add dsh-system-md
 dsh plugin --profile web add dsh-ptc-human-wait
 dsh plugin --profile web add dsh-desktop-notify-live
