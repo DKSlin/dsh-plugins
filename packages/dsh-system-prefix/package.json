@@ -1,6 +1,6 @@
 {
   "name": "dsh-system-prefix",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "在系统提示词最顶部插入一句可配置的话，不替换原有提示词。",
   "license": "MIT",
   "repository": {

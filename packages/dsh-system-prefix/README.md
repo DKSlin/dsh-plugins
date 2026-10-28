@@ -32,7 +32,8 @@
 - 只作用于**顶层会话**；`subagent` / `workflow` 子 agent 不插入。
 - 每次新建 agent 时读取一次配置，并把当时的句子固定在该会话的提示词 section 里。
 - 句子为空或纯空白时不插入；`启用置顶句` 关闭时不插入。
-- 不使用 `complete: true`，所以不会和别的提示词 section 冲突；但如果同一会话里有另一个 `complete: true` 的 persona（例如 `dsh-system-md` 命中了文件，或 `minimal` 预设），整个提示词会被那个 section 接管，置顶句也会随之不显示。
+- 不使用 `complete: true`，所以不会和别的提示词 section 冲突。
+- 但如果同一会话里有另一个 `complete: true` 的 persona（例如 `minimal` 预设，或 `dsh-system-md` 命中了文件），整个提示词会被那个 section 接管，普通 section 不再渲染。为此本插件把当前句子暴露成 `systemPromptPrefix` 服务：`dsh-system-md` 命中文件时会取到这句话并放在 `.dsh/SYSTEM.md` 内容前面，置顶效果因此保留。其它 `complete` persona 不认识这个服务，仍会接管整个提示词。
 
 ## 实现
 
@@ -46,6 +47,8 @@ agent.ctx.systemPrompt.section({
   text,              // 创建时捕获的字符串
 })
 ```
+
+同时通过 `ctx.provide('systemPromptPrefix', { text() })` 暴露当前生效的句子（关闭时返回空串），供 `dsh-system-md` 这类做整体替换的插件取用。
 
 插件的两个配置字段（`enabled`、`text`）都标记为 `.volatile()`，因此：
 

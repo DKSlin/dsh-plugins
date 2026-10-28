@@ -63,6 +63,17 @@ export function apply(ctx, config) {
   /** agent id -> disposer of that agent's section registration. */
   const owned = new Map()
 
+  // The base renders one `complete` section as the whole prompt, so a project
+  // override (dsh-system-md) drops every other section — including this one.
+  // Expose the sentence so the override can prepend it instead of losing it.
+  ctx.provide('systemPromptPrefix', {
+    text: () => {
+      if (readSetting(settings.enabled, true) !== true) return ''
+      const value = readSetting(settings.text, DEFAULT_TEXT)
+      return typeof value === 'string' ? value : ''
+    },
+  })
+
   // Unloading or disabling the plugin removes sections it installed.
   ctx.effect(() => () => {
     for (const dispose of owned.values()) dispose?.()
