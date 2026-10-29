@@ -12,19 +12,18 @@ DeepSeek Harness (dsh) plugins, one package per directory under `packages/`.
 
 ## Install
 
-```sh
-dsh plugin --profile web add dsh-system-prefix
-dsh plugin --profile web add dsh-system-md
-dsh plugin --profile web add dsh-ptc-human-wait
-dsh plugin --profile web add dsh-desktop-notify-live
-dsh plugin --profile web add dsh-mail-bridge
-```
-
-Or from this repository without npm:
+These packages are not published to npm, so install them from this repository:
 
 ```sh
+dsh plugin --profile web add github:DKSlin/dsh-plugins#path:/packages/dsh-system-prefix
 dsh plugin --profile web add github:DKSlin/dsh-plugins#path:/packages/dsh-system-md
+dsh plugin --profile web add github:DKSlin/dsh-plugins#path:/packages/dsh-ptc-human-wait
+dsh plugin --profile web add github:DKSlin/dsh-plugins#path:/packages/dsh-desktop-notify-live
+dsh plugin --profile web add github:DKSlin/dsh-plugins#path:/packages/dsh-mail-bridge
 ```
+
+Once a package is listed in the plugin market, installing it from the market uses
+the same GitHub source.
 
 Each package declares `dsh.bundle` with its own `cordis.patch.yml`, so it lands
 in the profile's bundle layer and can be enabled or disabled from the plugin
